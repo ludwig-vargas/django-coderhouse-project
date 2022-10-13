@@ -1,5 +1,7 @@
 from datetime import datetime
+from pipes import Template
 from django.http import HttpResponse
+from django.template import Template, Context
 
 def hello_world(request):
     return HttpResponse("Hello !!, this is my first view in Django!!!")
@@ -26,3 +28,16 @@ def calculate_age(request, birth_day):
         days=int((delta_time.days % days_by_year) % 30)
     )
     return HttpResponse(http_response)
+
+def my_template(request):
+    my_html = open('C:/Users/ludwi/Documents/coder_projects/django-coderhouse-project/my_blog/templat/template.html')
+    template = Template(my_html.read()) #Se carga en memoria nuestro documento, template
+    # 'OJO importar template y context, con: from django.template import Template, Context
+    
+    my_html.close() #Cerramos el archivo
+    
+    context = Context() #En este caso no hay paametros, IGUAL hay que colocarlo
+    
+    render = template.render(context) #Aca renderizamos la plantilla en documento
+    
+    return HttpResponse(render)
