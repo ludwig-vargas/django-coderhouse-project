@@ -17,10 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from my_blog.views import (
     hello_world, 
-    title)
+    title,
+    my_name_is,
+    calculate_age)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello-world/', hello_world),
     path('title/', title),
+    path('my-name-is/<str:name>/<int:age>/', my_name_is),
+    path('calculate-age/<str:birth_day>/', calculate_age),
 ]
