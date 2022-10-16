@@ -20,7 +20,8 @@ from my_blog.views import (
     title,
     my_name_is,
     calculate_age,
-    my_template)
+    my_template,
+    template_loader)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +29,6 @@ urlpatterns = [
     path('title/', title),
     path('my-name-is/<str:name>/<int:age>/', my_name_is),
     path('calculate-age/<str:birth_day>/', calculate_age),
-    path('template/', my_template)
+    path('template/', my_template),
+    path('template_loader/<str:name>/<str:last_name>/', template_loader),
 ]

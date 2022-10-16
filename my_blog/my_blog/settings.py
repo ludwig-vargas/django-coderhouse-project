@@ -54,7 +54,9 @@ ROOT_URLCONF = 'my_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'C:/Users/ludwi/Documents/coder_projects/django-coderhouse-project/my_blog/templat'
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

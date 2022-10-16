@@ -1,7 +1,7 @@
 from datetime import datetime
-from pipes import Template
 from django.http import HttpResponse
 from django.template import Template, Context
+from django.template import loader
 
 def hello_world(request):
     return HttpResponse("Hello !!, this is my first view in Django!!!")
@@ -31,13 +31,53 @@ def calculate_age(request, birth_day):
 
 def my_template(request):
     my_html = open('C:/Users/ludwi/Documents/coder_projects/django-coderhouse-project/my_blog/templat/template.html')
-    template = Template(my_html.read()) #Se carga en memoria nuestro documento, template
+    template = Template(
+        my_html.read()
+        .encode('latin-1')
+        .decode('utf-8')) 
+     # .encode("latin-1").decode("utf-8") se usa para leer correctamente las tildes o acentos del español en Windows
+    #Se carga en memoria nuestro documento, template
     # 'OJO importar template y context, con: from django.template import Template, Context
     
     my_html.close() #Cerramos el archivo
     
-    context = Context() #En este caso no hay paametros, IGUAL hay que colocarlo
+    context_dict = {
+        "name": "Ludwig",
+        "last_name": "Vargas Garcia",
+        "my_strings": "this is any list of strings".split(),
+        "grades": {
+            "Pedro": 5,
+            "Alicia": 7,
+            "Santiago": 8,
+            "Silvina": 10,
+            "Sofia": 9,
+        },
+    }
+    
+    context = Context(
+        context_dict
+        )  # Le paso el diccionario al contexto con el nombre y apellido
     
     render = template.render(context) #Aca renderizamos la plantilla en documento
     
+    return HttpResponse(render)
+
+
+def template_loader(request, name, last_name):
+
+    template = loader.get_template("template_loader.html")
+
+    context_dict = {
+        "name": name,
+        "last_name": last_name,
+        "my_strings": "this is any list of strings".split(),
+        "grades": {
+            "Pedro": 5,
+            "Alicia": 7,
+            "Santiago": 8,
+            "Silvina": 10,
+            "Sofia": 9,
+        },
+    }
+    render = template.render(context_dict)
     return HttpResponse(render)
