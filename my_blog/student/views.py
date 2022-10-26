@@ -1,7 +1,6 @@
-from re import template
 from django.http import HttpResponse
 from django.template import loader
-
+from django.shortcuts import render
 from student.models import Studen
 
 def create_student(request, name: str = 'name', last_name: str = 'last_name', email: str = 'email'):
@@ -14,3 +13,14 @@ def create_student(request, name: str = 'name', last_name: str = 'last_name', em
     context_dict = {'student': student}
     render = template.render(context_dict)
     return HttpResponse(render)
+
+def students(request):
+    students = Studen.objects.all()
+    
+    context_dict = {'students': students}
+    
+    return render (
+        request = request,
+        context = context_dict,
+        template_name = 'student/students_list.html'
+    )
