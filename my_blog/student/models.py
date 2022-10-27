@@ -8,5 +8,5 @@ class Studen(models.Model):
     email = models.EmailField()
     
     def __str__(self):
-        return f'Name: {self.name} | Last Name: {self.last_name} | Email: {self.email}'
+        return f'{self.name} {self.last_name} | email: {self.email}'
     

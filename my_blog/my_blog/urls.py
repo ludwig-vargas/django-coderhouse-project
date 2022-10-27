@@ -16,26 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from course.views import create_course
+from course.views import create_course, create_homework
 from student.views import create_student
-from my_blog.views import (
-    hello_world, 
-    title,
-    my_name_is,
-    calculate_age,
-    my_template,
-    template_loader)
+from profesor.views import create_profesor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello-world/', hello_world),
-    path('title/', title),
-    path('my-name-is/<str:name>/<int:age>/', my_name_is),
-    path('calculate-age/<str:birth_day>/', calculate_age),
-    path('template/', my_template),
-    path('template_loader/<str:name>/<str:last_name>/', template_loader),
+    path('', include('home.urls')),
     path('create_course/<str:name>/<int:code>/', create_course),
+    path("create_homework/<str:name>/<str:due_date>", create_homework),
     path('create_student/<str:name>/<str:last_name>/<str:email>/', create_student),
+    path('create_profesor/<str:name>/<str:last_name>/<str:email>/<str:profession>', create_profesor),
     path('course/', include('course.urls')),
-    path('student/', include('student.urls')),
+    path('homework/', include('course.urls')),
+    path('student/', include('student.urls')),    
+    path("profesor/", include("profesor.urls")),
 ]
