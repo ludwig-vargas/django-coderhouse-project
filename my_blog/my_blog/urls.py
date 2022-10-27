@@ -16,16 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from course.views import create_course
+from course.views import create_course, create_homework
 from student.views import create_student
 from profesor.views import create_profesor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('home.urls')),
     path('create_course/<str:name>/<int:code>/', create_course),
+    path("create_homework/<str:name>/<str:due_date>", create_homework),
     path('create_student/<str:name>/<str:last_name>/<str:email>/', create_student),
     path('create_profesor/<str:name>/<str:last_name>/<str:email>/<str:profession>', create_profesor),
     path('course/', include('course.urls')),
+    path('homework/', include('course.urls')),
     path('student/', include('student.urls')),    
     path("profesor/", include("profesor.urls")),
 ]
